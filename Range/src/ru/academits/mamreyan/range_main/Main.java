@@ -11,33 +11,18 @@ public class Main {
         Range intersection = range1.getIntersection(range2);
 
         if (intersection != null) {
-            System.out.printf("Начало пересечения - %.1f%n", intersection.getFrom());
-            System.out.printf("Конец пересечения - %.1f%n", intersection.getTo());
+            System.out.println(intersection);
         } else {
-            System.out.println("Нет пересечения");
+            System.out.println("()");
         }
 
-        System.out.println();
+        Range[] union = range1.getUnion(range2);
 
-        Range[] integration = range1.getIntegration(range2);
-
-        for (int i = 0; i < integration.length; i++) {
-            System.out.printf("Начало %d-го фрагмента объединения - %.1f%n", i + 1, integration[i].getFrom());
-            System.out.printf("Конец %d-го фрагмента объединения - %.1f%n", i + 1, integration[i].getTo());
-        }
-
-        System.out.println();
+        Range.arrayToString(union);
 
         Range[] difference = range1.getDifference(range2);
 
-        for (int i = 0; i < difference.length; i++) {
-            if (difference[i] != null) {
-                System.out.printf("Начало %d-го фрагмента разности - %.1f%n", i + 1, difference[i].getFrom());
-                System.out.printf("Конец %d-го фрагмента разности - %.1f%n", i + 1, difference[i].getTo());
-            } else {
-                System.out.println("Разность равна нулю");
-            }
-        }
+        Range.arrayToString(difference);
 
         System.out.println();
 
