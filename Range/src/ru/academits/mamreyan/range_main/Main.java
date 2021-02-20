@@ -17,11 +17,9 @@ public class Main {
         }
 
         Range[] union = range1.getUnion(range2);
-
         Range.arrayToString(union);
 
         Range[] difference = range1.getDifference(range2);
-
         Range.arrayToString(difference);
 
         System.out.println();
