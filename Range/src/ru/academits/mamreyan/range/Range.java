@@ -41,19 +41,20 @@ public class Range {
     }
 
     public static String convertArrayToString(Range[] array) {
-        StringBuilder string = new StringBuilder("[");
+        StringBuilder line = new StringBuilder("[");
 
-        for (int i = 0; i < array.length; i++) {
-            string.append(array[i].toString());
-
-            if (i != array.length - 1) {
-                string.append(", ");
-            }
+        for (Range r :
+                array) {
+            line.append(r).append(", ");
         }
 
-        string.append("]");
+        if (line.length() > 1) {
+            line.replace(line.length() - 2, line.length() - 1, "]");
+        } else {
+            line.append("]");
+        }
 
-        return string.toString();
+        return line.toString();
     }
 
     public Range getIntersection(Range range) {
