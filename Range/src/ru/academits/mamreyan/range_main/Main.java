@@ -17,13 +17,12 @@ public class Main {
         }
 
         Range[] union = range1.getUnion(range2);
-        Range.arrayToString(union);
+        System.out.println(Range.convertArrayToString(union));
 
         Range[] difference = range1.getDifference(range2);
-        Range.arrayToString(difference);
+        System.out.println(Range.convertArrayToString(difference));
 
         System.out.println();
-
     }
 
     public static void main(String[] args) {
