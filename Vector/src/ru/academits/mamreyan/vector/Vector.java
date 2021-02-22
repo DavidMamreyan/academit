@@ -3,12 +3,12 @@ package ru.academits.mamreyan.vector;
 import java.util.Arrays;
 
 public class Vector {
-    private final int n;
+    private int n;
     private double[] componentsArray;
 
     public Vector(int n) {
         if (n <= 0) {
-            throw new IllegalArgumentException("N <= 0. N must be > 0.");
+            throw new IllegalArgumentException("n <= 0. n must be > 0.");
         }
 
         this.n = n;
@@ -18,6 +18,10 @@ public class Vector {
     }
 
     public Vector(Vector vector) {
+        if (vector == null) {
+            throw new IllegalArgumentException("vector is null. vector must not be null.");
+        }
+
         n = vector.n;
         componentsArray = new double[n];
 
@@ -25,6 +29,10 @@ public class Vector {
     }
 
     public Vector(double[] componentsArray) {
+        if (componentsArray == null) {
+            throw new IllegalArgumentException("componentsArray is null. componentsArray must not be null.");
+        }
+
         n = componentsArray.length;
         this.componentsArray = new double[n];
 
@@ -33,11 +41,11 @@ public class Vector {
 
     public Vector(int n, double[] componentsArray) {
         if (n <= 0) {
-            throw new IllegalArgumentException("N <= 0. N must be > 0.");
+            throw new IllegalArgumentException("n <= 0. n must be > 0.");
         }
 
         if (componentsArray.length > n) {
-            throw new IllegalArgumentException("Array's length > n. Array's length must be <= n.");
+            throw new IllegalArgumentException("componentsArray.length > n. componentsArray.length must be <= n.");
         }
 
         this.n = n;
@@ -60,7 +68,8 @@ public class Vector {
 
     public void setComponentsArray(double[] componentsArray) {
         if (componentsArray.length > this.componentsArray.length) {
-            throw new IllegalArgumentException("New array's length > old array's length. New array's length must be <= old array's length.");
+            throw new IllegalArgumentException("New componentsArray.length > this.componentsArray.length. " +
+                    "New componentsArray.length must be <= this.componentsArray.length.");
         }
 
         System.arraycopy(componentsArray, 0, this.componentsArray, 0, componentsArray.length);
@@ -70,17 +79,17 @@ public class Vector {
         }
     }
 
-    public double getComponent(int i) {
-        if (i >= n) {
-            throw new IllegalArgumentException("i >= n. i must be < n.");
+    public double getComponentByIndex(int i) {
+        if (i >= n || i < 0) {
+            throw new IllegalArgumentException("Index must be 0 <= i < n.");
         }
 
         return componentsArray[i];
     }
 
-    public void setComponent(int i, double component) {
-        if (i >= n) {
-            throw new IllegalArgumentException("i >= n. i must be < n.");
+    public void setComponentByIndex(int i, double component) {
+        if (i >= n || i < 0) {
+            throw new IllegalArgumentException("Index must be 0 <= i < n.");
         }
 
         componentsArray[i] = component;
@@ -252,4 +261,41 @@ public class Vector {
         return Math.sqrt(length);
     }
 
+    public Vector trimZeroComponents() { // Удалить нулевые компоненты справа
+        int i = 0;
+        double epsilon = 1e-5;
+
+        for (double c :
+                componentsArray) {
+            if (c < epsilon && c > -epsilon) {
+                i++;
+            } else {
+                i = 0;
+            }
+        }
+
+        if (i == 0) {
+            return this;
+        } else if (i == n) {
+            n = 1;
+            componentsArray = new double[]{0};
+        } else {
+            n -= i;
+            componentsArray = Arrays.copyOf(componentsArray, n);
+
+        }
+
+        return this;
+    }
+
+    public Vector appendZeroComponents(int n) { // Добавить нулевые компоненты справа
+        this.n += n;
+        double[] tempArray = Arrays.copyOf(componentsArray, componentsArray.length);
+        componentsArray = new double[this.n];
+
+        Arrays.fill(componentsArray, 0.0);
+        System.arraycopy(tempArray, 0, componentsArray, 0, tempArray.length);
+
+        return this;
+    }
 }

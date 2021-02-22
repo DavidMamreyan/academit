@@ -111,10 +111,10 @@ public class Main {
         System.out.println(v2);
 
         System.out.println(v1.getSize());
-        System.out.println(v1.getComponent(2));
+        System.out.println(v1.getComponentByIndex(2));
         System.out.println(Arrays.toString(v2.getComponentsArray()));
 
-        v1.setComponent(2, 3);
+        v1.setComponentByIndex(2, 3);
         v2.setComponentsArray(new double[]{4, 5, 6});
 
         System.out.println(v1);
@@ -127,5 +127,19 @@ public class Main {
         v1.setComponentsArray(new double[]{0, 10});
 
         System.out.println(v1);
+
+        System.out.println("__________________");
+
+        v1 = new Vector(new double[]{1, 2, 0, 0});
+
+        System.out.println(v1);
+        v1.trimZeroComponents();
+        System.out.println(v1);
+
+        v2 = new Vector(new double[]{1, 2});
+
+        System.out.println(v2);
+        v2.appendZeroComponents(2);
+        System.out.println(v2);
     }
 }
