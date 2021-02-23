@@ -92,7 +92,7 @@ public class Main {
 
         System.out.println(v1);
         System.out.println(v2);
-        System.out.println(Vector.dotProduct(v1, v2));
+        System.out.println(Vector.scalarProduct(v1, v2));
 
         System.out.println("__________________");
 
@@ -100,7 +100,7 @@ public class Main {
 
         System.out.println(v1);
         System.out.println(v2);
-        System.out.println(Vector.dotProduct(v1, v2));
+        System.out.println(Vector.scalarProduct(v1, v2));
 
         System.out.println("__________________");
 

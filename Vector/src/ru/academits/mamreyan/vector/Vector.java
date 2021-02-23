@@ -174,14 +174,14 @@ public class Vector {
         return resultVector;
     }
 
-    public static double dotProduct(Vector vector1, Vector vector2) {
-        double dotProduct = 0.0;
+    public static double scalarProduct(Vector vector1, Vector vector2) {
+        double scalarProduct = 0.0;
 
         for (int i = 0; i < Math.min(vector1.n, vector2.n); i++) {
-            dotProduct += vector1.componentsArray[i] * vector2.componentsArray[i];
+            scalarProduct += vector1.componentsArray[i] * vector2.componentsArray[i];
         }
 
-        return dotProduct;
+        return scalarProduct;
     }
 
     public static Vector reversion(Vector vector) {
