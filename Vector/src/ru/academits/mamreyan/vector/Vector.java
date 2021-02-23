@@ -104,7 +104,7 @@ public class Vector {
             line.append(c).append(", ");
         }
 
-        line.replace(line.length() - 2, line.length() - 1, "}");
+        line.replace(line.length() - 2, line.length(), "}");
 
         return line.toString();
     }
