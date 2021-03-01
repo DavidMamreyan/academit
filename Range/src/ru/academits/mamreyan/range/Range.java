@@ -36,25 +36,24 @@ public class Range {
     // Часть 2
 
     @Override
-    public final String toString() {
+    public String toString() {
         return "(" + from + "; " + to + ")";
     }
 
     public static String convertArrayToString(Range[] array) {
-        StringBuilder line = new StringBuilder("[");
-
-        for (Range r :
-                array) {
-            line.append(r).append(", ");
+        if (array.length == 0) {
+            return "[]";
         }
 
-        if (line.length() > 1) {
-            line.replace(line.length() - 2, line.length() - 1, "]");
-        } else {
-            line.append("]");
+        StringBuilder stringBuilder = new StringBuilder("[");
+
+        for (Range r : array) {
+            stringBuilder.append(r).append(", ");
         }
 
-        return line.toString();
+        stringBuilder.replace(stringBuilder.length() - 2, stringBuilder.length() - 1, "]");
+
+        return stringBuilder.toString();
     }
 
     public Range getIntersection(Range range) {
