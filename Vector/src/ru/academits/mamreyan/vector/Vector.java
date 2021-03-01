@@ -40,15 +40,15 @@ public class Vector {
 
     @Override
     public String toString() {
-        StringBuilder line = new StringBuilder("{");
+        StringBuilder stringBuilder = new StringBuilder("{");
 
         for (double c : components) {
-            line.append(c).append(", ");
+            stringBuilder.append(c).append(", ");
         }
 
-        line.replace(line.length() - 2, line.length(), "}");
+        stringBuilder.replace(stringBuilder.length() - 2, stringBuilder.length(), "}");
 
-        return line.toString();
+        return stringBuilder.toString();
     }
 
     @Override
