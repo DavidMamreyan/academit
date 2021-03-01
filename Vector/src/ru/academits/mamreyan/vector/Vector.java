@@ -111,7 +111,7 @@ public class Vector {
         return resultVector;
     }
 
-    public static Vector getReversedVector(Vector vector) {
+    public static Vector getReversion(Vector vector) {
         Vector resultVector = new Vector(vector);
 
         resultVector.reverse();

@@ -7,7 +7,7 @@ public class Main {
         Vector v1 = new Vector(new double[]{1, 2, 3});
 
         System.out.println(v1);
-        System.out.println(Vector.getReversedVector(v1));
+        System.out.println(Vector.getReversion(v1));
 
         System.out.println("__________________");
 
