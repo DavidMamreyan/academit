@@ -7,19 +7,12 @@ public class Main {
         Vector v1 = new Vector(new double[]{1, 2, 3});
 
         System.out.println(v1);
-        System.out.println(Vector.getReversion(v1));
-
-        System.out.println("__________________");
-
-        Vector v2 = new Vector(3, new double[]{4, 5, 6});
-
-        System.out.println(v2);
-        System.out.println(v2.reverse());
+        System.out.println(v1.reverse());
 
         System.out.println("__________________");
 
         v1 = new Vector(3, new double[]{1, 2, 3});
-        v2 = new Vector(4, new double[]{4, 5, 6});
+        Vector v2 = new Vector(4, new double[]{4, 5, 6});
 
         System.out.println(v1);
         System.out.println(v2);
