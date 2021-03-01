@@ -1,38 +1,23 @@
 package ru.academits.mamreyan.shapes;
 
-public class Square extends Shapes implements Shape {
+public class Square implements Shape {
     private double sideLength;
 
     public Square(double sideLength) {
         this.sideLength = sideLength;
-        area = sideLength * sideLength;
-        perimeter = sideLength * 4;
     }
 
-
-    @Override
-    public final double getWidth() {
+    public double getSideLength() {
         return sideLength;
     }
 
-    @Override
-    public final double getHeight() {
-        return sideLength;
+    public void setSideLength(double sideLength) {
+        this.sideLength = sideLength;
     }
 
     @Override
-    public final double getArea() {
-        return area;
-    }
-
-    @Override
-    public final double getPerimeter() {
-        return perimeter;
-    }
-
-    @Override
-    public final String toString() {
-        return "Square " + area + " " + perimeter;
+    public String toString() {
+        return "Square, sideLength = " + sideLength;
     }
 
     @Override
@@ -53,11 +38,27 @@ public class Square extends Shapes implements Shape {
     public int hashCode() {
         final int prime = 7;
         int hash = 1;
-        hash = (prime * hash) + Double.hashCode(width);
-        hash = (prime * hash) + Double.hashCode(height);
-        hash = (prime * hash) + Double.hashCode(area);
-        hash = (prime * hash) + Double.hashCode(perimeter);
-        hash = (prime * hash) + Double.hashCode(sideLength);
+        hash = prime * hash + Double.hashCode(sideLength);
         return hash;
+    }
+
+    @Override
+    public double getWidth() {
+        return sideLength;
+    }
+
+    @Override
+    public double getHeight() {
+        return sideLength;
+    }
+
+    @Override
+    public double getArea() {
+        return sideLength * sideLength;
+    }
+
+    @Override
+    public double getPerimeter() {
+        return sideLength * 4;
     }
 }

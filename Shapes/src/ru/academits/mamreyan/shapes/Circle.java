@@ -1,40 +1,23 @@
 package ru.academits.mamreyan.shapes;
 
-public class Circle extends Shapes implements Shape {
-    private final double radius;
+public class Circle implements Shape {
+    private double radius;
 
     public Circle(double radius) {
         this.radius = radius;
-        width = radius * 2;
-        height = radius * 2;
-        area = Math.PI * radius * radius;
-        perimeter = 2 * Math.PI * radius;
     }
 
-
-    @Override
-    public final double getWidth() {
-        return width;
+    public double getRadius() {
+        return radius;
     }
 
-    @Override
-    public final double getHeight() {
-        return height;
+    public void setRadius(double radius) {
+        this.radius = radius;
     }
 
     @Override
-    public final double getArea() {
-        return area;
-    }
-
-    @Override
-    public final double getPerimeter() {
-        return perimeter;
-    }
-
-    @Override
-    public final String toString() {
-        return "Circle " + area + " " + perimeter;
+    public String toString() {
+        return "Circle, radius = " + radius;
     }
 
     @Override
@@ -55,11 +38,27 @@ public class Circle extends Shapes implements Shape {
     public int hashCode() {
         final int prime = 7;
         int hash = 1;
-        hash = (prime * hash) + Double.hashCode(width);
-        hash = (prime * hash) + Double.hashCode(height);
-        hash = (prime * hash) + Double.hashCode(area);
-        hash = (prime * hash) + Double.hashCode(perimeter);
-        hash = (prime * hash) + Double.hashCode(radius);
+        hash = prime * hash + Double.hashCode(radius);
         return hash;
+    }
+
+    @Override
+    public double getWidth() {
+        return radius * 2;
+    }
+
+    @Override
+    public double getHeight() {
+        return radius * 2;
+    }
+
+    @Override
+    public double getArea() {
+        return Math.PI * radius * radius;
+    }
+
+    @Override
+    public double getPerimeter() {
+        return 2 * Math.PI * radius;
     }
 }

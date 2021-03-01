@@ -1,16 +1,12 @@
 package ru.academits.mamreyan.shapes;
 
-public class Triangle extends Shapes implements Shape {
+public class Triangle implements Shape {
     private double x1;
     private double y1;
     private double x2;
     private double y2;
     private double x3;
     private double y3;
-
-    private final double a;
-    private final double b;
-    private final double c;
 
     public Triangle(double x1, double y1, double x2, double y2, double x3, double y3) {
         this.x1 = x1;
@@ -19,39 +15,59 @@ public class Triangle extends Shapes implements Shape {
         this.y2 = y2;
         this.x3 = x3;
         this.y3 = y3;
-        a = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
-        b = Math.sqrt(Math.pow((x3 - x1), 2) + Math.pow((y3 - y1), 2));
-        c = Math.sqrt(Math.pow((x3 - x2), 2) + Math.pow((y3 - y2), 2));
-        width = Math.max(Math.max(x1, x2), x3) - Math.min(Math.min(x1, x2), x3);
-        height = Math.max(Math.max(y1, y2), y3) - Math.min(Math.min(y1, y2), y3);
-        perimeter = a + b + c;
-        double halfPerimeter = perimeter / 2;
-        area = Math.sqrt(halfPerimeter * (halfPerimeter - a) * (halfPerimeter - b) * (halfPerimeter - c));
+    }
+
+    public double getX1() {
+        return x1;
+    }
+
+    public void setX1(double x1) {
+        this.x1 = x1;
+    }
+
+    public double getY1() {
+        return y1;
+    }
+
+    public void setY1(double y1) {
+        this.y1 = y1;
+    }
+
+    public double getX2() {
+        return x2;
+    }
+
+    public void setX2(double x2) {
+        this.x2 = x2;
+    }
+
+    public double getY2() {
+        return y2;
+    }
+
+    public void setY2(double y2) {
+        this.y2 = y2;
+    }
+
+    public double getX3() {
+        return x3;
+    }
+
+    public void setX3(double x3) {
+        this.x3 = x3;
+    }
+
+    public double getY3() {
+        return y3;
+    }
+
+    public void setY3(double y3) {
+        this.y3 = y3;
     }
 
     @Override
-    public final double getWidth() {
-        return width;
-    }
-
-    @Override
-    public final double getHeight() {
-        return height;
-    }
-
-    @Override
-    public final double getArea() {
-        return area;
-    }
-
-    @Override
-    public final double getPerimeter() {
-        return perimeter;
-    }
-
-    @Override
-    public final String toString() {
-        return "Triangle " + area + " " + perimeter;
+    public String toString() {
+        return "Triangle, x1 = " + x1 + ", y1 = " + y1 + ", x2 = " + x2 + ", y2 = " + y2 + ", x3 = " + x3 + ", y3 = " + y3;
     }
 
     @Override
@@ -72,19 +88,46 @@ public class Triangle extends Shapes implements Shape {
     public int hashCode() {
         final int prime = 13;
         int hash = 1;
-        hash = (prime * hash) + Double.hashCode(width);
-        hash = (prime * hash) + Double.hashCode(height);
-        hash = (prime * hash) + Double.hashCode(area);
-        hash = (prime * hash) + Double.hashCode(perimeter);
-        hash = (prime * hash) + Double.hashCode(x1);
-        hash = (prime * hash) + Double.hashCode(y1);
-        hash = (prime * hash) + Double.hashCode(x2);
-        hash = (prime * hash) + Double.hashCode(y2);
-        hash = (prime * hash) + Double.hashCode(x3);
-        hash = (prime * hash) + Double.hashCode(y3);
-        hash = (prime * hash) + Double.hashCode(a);
-        hash = (prime * hash) + Double.hashCode(b);
-        hash = (prime * hash) + Double.hashCode(c);
+        hash = prime * hash + Double.hashCode(x1);
+        hash = prime * hash + Double.hashCode(y1);
+        hash = prime * hash + Double.hashCode(x2);
+        hash = prime * hash + Double.hashCode(y2);
+        hash = prime * hash + Double.hashCode(x3);
+        hash = prime * hash + Double.hashCode(y3);
         return hash;
+    }
+
+    @Override
+    public double getWidth() {
+        return Math.max(Math.max(x1, x2), x3) - Math.min(Math.min(x1, x2), x3);
+    }
+
+    @Override
+    public double getHeight() {
+        return Math.max(Math.max(y1, y2), y3) - Math.min(Math.min(y1, y2), y3);
+    }
+
+    @Override
+    public double getArea() {
+        double a = Triangle.getSideLength(x1, y1, x2, y2);
+        double b = Triangle.getSideLength(x1, y1, x3, y3);
+        double c = Triangle.getSideLength(x2, y2, x3, y3);
+
+        double halfPerimeter = a + b + c / 2;
+
+        return Math.sqrt(halfPerimeter * (halfPerimeter - a) * (halfPerimeter - b) * (halfPerimeter - c));
+    }
+
+    @Override
+    public double getPerimeter() {
+        double a = Triangle.getSideLength(x1, y1, x2, y2);
+        double b = Triangle.getSideLength(x1, y1, x3, y3);
+        double c = Triangle.getSideLength(x2, y2, x3, y3);
+
+        return a + b + c;
+    }
+
+    public static double getSideLength(double x1, double y1, double x2, double y2) {
+        return Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
     }
 }

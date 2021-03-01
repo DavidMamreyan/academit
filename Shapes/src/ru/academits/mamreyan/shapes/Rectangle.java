@@ -1,41 +1,35 @@
 package ru.academits.mamreyan.shapes;
 
-public class Rectangle extends Shapes implements Shape {
-    private final double sideLength1;
-    private final double sideLength2;
+public class Rectangle implements Shape {
+    private double width;
+    private double height;
 
-    public Rectangle(double sideLength1, double sideLength2) {
-        this.sideLength1 = sideLength1;
-        this.sideLength2 = sideLength2;
-        width = Math.max(sideLength1, sideLength2);
-        height = Math.min(sideLength1, sideLength2);
-        area = sideLength1 * sideLength2;
-        perimeter = (sideLength1 * 2) + (sideLength2 * 2);
+    public Rectangle(double width, double height) {
+        this.width = width;
+        this.height = height;
     }
 
     @Override
-    public final double getWidth() {
+    public double getWidth() {
         return width;
     }
 
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
     @Override
-    public final double getHeight() {
+    public double getHeight() {
         return height;
     }
 
-    @Override
-    public final double getArea() {
-        return area;
+    public void setHeight(double height) {
+        this.height = height;
     }
 
     @Override
-    public final double getPerimeter() {
-        return perimeter;
-    }
-
-    @Override
-    public final String toString() {
-        return "Rectangle " + area + " " + perimeter;
+    public String toString() {
+        return "Rectangle, width = " + width + ", height = " + height;
     }
 
     @Override
@@ -49,19 +43,25 @@ public class Rectangle extends Shapes implements Shape {
         }
 
         Rectangle r = (Rectangle) o;
-        return sideLength1 == r.sideLength1 && sideLength2 == r.sideLength2;
+        return width == r.width && height == r.height;
     }
 
     @Override
     public int hashCode() {
         final int prime = 7;
         int hash = 1;
-        hash = (prime * hash) + Double.hashCode(width);
-        hash = (prime * hash) + Double.hashCode(height);
-        hash = (prime * hash) + Double.hashCode(area);
-        hash = (prime * hash) + Double.hashCode(perimeter);
-        hash = (prime * hash) + Double.hashCode(sideLength1);
-        hash = (prime * hash) + Double.hashCode(sideLength2);
+        hash = prime * hash + Double.hashCode(width);
+        hash = prime * hash + Double.hashCode(height);
         return hash;
+    }
+
+    @Override
+    public double getArea() {
+        return width * height;
+    }
+
+    @Override
+    public double getPerimeter() {
+        return (width + height) * 2;
     }
 }
