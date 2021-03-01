@@ -193,6 +193,10 @@ public class Vector {
     }
 
     public Vector trimZeroComponents(int n) { // Удалить нулевые компоненты справа
+        if (n <= 0) {
+            throw new IllegalArgumentException("n must be > 0. n = " + n);
+        }
+
         int i = 0;
         final double epsilon = 1e-5;
 
@@ -228,6 +232,10 @@ public class Vector {
     }
 
     public Vector appendZeroComponents(int n) { // Добавить нулевые компоненты справа
+        if (n <= 0) {
+            throw new IllegalArgumentException("n must be > 0. n = " + n);
+        }
+
         components = Arrays.copyOf(components, components.length + n);
 
         return this;
