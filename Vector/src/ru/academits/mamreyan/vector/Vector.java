@@ -111,14 +111,6 @@ public class Vector {
         return resultVector;
     }
 
-    public static Vector getReversion(Vector vector) {
-        Vector resultVector = new Vector(vector);
-
-        resultVector.reverse();
-
-        return resultVector;
-    }
-
     public static double getScalarProduct(Vector vector1, Vector vector2) {
         double scalarProduct = 0.0;
 
