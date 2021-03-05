@@ -51,7 +51,7 @@ public class Range {
             stringBuilder.append(r).append(", ");
         }
 
-        stringBuilder.replace(stringBuilder.length() - 2, stringBuilder.length() - 1, "]");
+        stringBuilder.replace(stringBuilder.length() - 2, stringBuilder.length(), "]");
 
         return stringBuilder.toString();
     }
