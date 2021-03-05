@@ -12,9 +12,9 @@ public class Main {
         });
 
         System.out.println(matrix1);
-        System.out.println(matrix1.getVectorByIndex(1));
+        System.out.println(matrix1.getStringByIndex(1));
         System.out.println(matrix1.getColumnByIndex(1));
-        matrix1.setVectorByIndex(1, new Vector(new double[]{10, 20, 30}));
+        matrix1.setStringByIndex(1, new Vector(new double[]{10, 20, 30}));
         System.out.println(matrix1);
         System.out.println(matrix1.getStringsAmount());
         System.out.println(matrix1.getColumnsAmount());
@@ -44,7 +44,7 @@ public class Main {
 
         System.out.println(matrix1);
         System.out.println(matrix2);
-        System.out.println(Matrix.getMultiplication(matrix1, matrix2));
+        System.out.println(Matrix.getProduct(matrix1, matrix2));
 
         System.out.println("__________________");
 
@@ -55,14 +55,14 @@ public class Main {
 
         System.out.println("__________________");
 
-        matrix1 = new Matrix(new double[][]{{76, 40, 82}, {21, 80, 2}, {31, 23, 70}});
+        matrix1 = new Matrix(new double[][]{{76, 40, 82, 13}, {21, 80, 2, 53}, {31, 23, 70, 42}, {5, 84, 35, 94}});
 
         System.out.println(matrix1);
-        System.out.println(matrix1.getMatrixDeterminant());
+        System.out.println("asd = " + matrix1.getDeterminant());
 
         System.out.println("__________________");
 
-        matrix1 = new Matrix(new double[][]{{1}, {2}, {3}});
+        matrix1 = new Matrix(new double[][]{{1, 2}, {2, 3}, {3, 4}});
         Vector vector = new Vector(new double[]{1, 2, 3});
 
         System.out.println(matrix1);
@@ -74,15 +74,15 @@ public class Main {
 
         System.out.println("__________________");
 
-        matrix2 = new Matrix(new double[][]{{1, 2, 3}, {3, 4, 5}});
-        vector = new Vector(new double[]{1, 2, 3});
+        matrix1 = new Matrix(new double[][]{{1, 2}, {2, 3}, {3, 4}});
+        vector = new Vector(new double[]{1, 2});
 
-        System.out.println(matrix2);
-        System.out.println(matrix2.getStringsAmount());
-        System.out.println(matrix2.getColumnsAmount());
+        System.out.println(matrix1);
+        System.out.println(matrix1.getStringsAmount());
+        System.out.println(matrix1.getColumnsAmount());
         System.out.println(vector);
         System.out.println(vector.getSize());
-        System.out.println(matrix2.multiplyByVector(vector));
+        System.out.println(matrix1.multiplyByVector(vector));
 
         System.out.println("__________________");
 

@@ -17,6 +17,11 @@ public class Vector {
         components = Arrays.copyOf(vector.components, vector.getSize());
     }
 
+
+    public Vector(int length, Vector vector) {
+        components = Arrays.copyOf(vector.components, Math.max(length, vector.getSize()));
+    }
+
     public Vector(double[] components) {
         if (components.length == 0) {
             throw new IllegalArgumentException("components.length cannot be 0");
@@ -26,16 +31,11 @@ public class Vector {
     }
 
     public Vector(int length, double[] components) {
-        if (length <= 0) {
+        if (length <= 0 && components.length == 0) {
             throw new IllegalArgumentException("length must be > 0. length = " + length);
         }
 
-        if (components.length > length) {
-            throw new IllegalArgumentException("components.length must be <= length. components.length = " + components.length +
-                    ", length = " + length);
-        }
-
-        this.components = Arrays.copyOf(components, length);
+        this.components = Arrays.copyOf(components, Math.max(length, components.length));
     }
 
     @Override
@@ -128,7 +128,7 @@ public class Vector {
             appendixLength = getSize() - vector.getSize();
             vector.appendZeroComponents(appendixLength);
         } else if (getSize() < vector.getSize()) {
-            this.appendZeroComponents(vector.getSize() - getSize());
+            appendZeroComponents(vector.getSize() - getSize());
         }
 
         for (int i = 0, size = getSize(); i < size; i++) {
@@ -147,7 +147,7 @@ public class Vector {
             appendixLength = getSize() - vector.getSize();
             vector.appendZeroComponents(appendixLength);
         } else if (getSize() < vector.getSize()) {
-            this.appendZeroComponents(vector.getSize() - getSize());
+            appendZeroComponents(vector.getSize() - getSize());
         }
 
         for (int i = 0, size = getSize(); i < size; i++) {
@@ -160,7 +160,7 @@ public class Vector {
     }
 
     public Vector reverse() {
-        this.multiplyByScalar(-1);
+        multiplyByScalar(-1);
 
         return this;
     }
@@ -184,7 +184,7 @@ public class Vector {
         return Math.sqrt(temp);
     }
 
-    public Vector trimZeroComponents(int n) { // Удалить нулевые компоненты справа
+    public Vector trimZeroComponents(int n) { // Удалить n нулевых компонентов справа
         if (n <= 0) {
             return this;
         }
@@ -217,13 +217,13 @@ public class Vector {
         return this;
     }
 
-    public Vector trimZeroComponents() {
+    public Vector trimZeroComponents() { // Удалить все нулевые компоненты справа
         trimZeroComponents(getSize());
 
         return this;
     }
 
-    public Vector appendZeroComponents(int n) { // Добавить нулевые компоненты справа
+    public Vector appendZeroComponents(int n) { // Добавить n нулевых компонентов справа
         if (n <= 0) {
             return this;
         }
