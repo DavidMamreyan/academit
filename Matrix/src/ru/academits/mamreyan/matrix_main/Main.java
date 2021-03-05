@@ -16,8 +16,8 @@ public class Main {
         System.out.println(matrix1.getColumnByIndex(1));
         matrix1.setVectorByIndex(1, new Vector(new double[]{10, 20, 30}));
         System.out.println(matrix1);
-        System.out.println(matrix1.getHeight());
-        System.out.println(matrix1.getLength());
+        System.out.println(matrix1.getStringsAmount());
+        System.out.println(matrix1.getColumnsAmount());
 
         System.out.println("__________________");
 
@@ -66,8 +66,8 @@ public class Main {
         Vector vector = new Vector(new double[]{1, 2, 3});
 
         System.out.println(matrix1);
-        System.out.println(matrix1.getHeight());
-        System.out.println(matrix1.getLength());
+        System.out.println(matrix1.getStringsAmount());
+        System.out.println(matrix1.getColumnsAmount());
         System.out.println(vector);
         System.out.println(vector.getSize());
         System.out.println(matrix1.multiplyByVector(vector));
@@ -78,8 +78,8 @@ public class Main {
         vector = new Vector(new double[]{1, 2, 3});
 
         System.out.println(matrix2);
-        System.out.println(matrix2.getHeight());
-        System.out.println(matrix2.getLength());
+        System.out.println(matrix2.getStringsAmount());
+        System.out.println(matrix2.getColumnsAmount());
         System.out.println(vector);
         System.out.println(vector.getSize());
         System.out.println(matrix2.multiplyByVector(vector));

@@ -16,9 +16,9 @@ public class Matrix {
     }
 
     public Matrix(Matrix matrix) {
-        vectors = new Vector[matrix.getHeight()];
+        vectors = new Vector[matrix.getStringsAmount()];
 
-        vectors = Arrays.copyOf(matrix.vectors, matrix.getHeight());
+        vectors = Arrays.copyOf(matrix.vectors, matrix.getStringsAmount());
     }
 
     public Matrix(double[][] vectors) {
@@ -55,40 +55,41 @@ public class Matrix {
         }
     }
 
-    public int getHeight() {
+    public int getStringsAmount() {
         return vectors.length;
     }
 
-    public int getLength() {
+    public int getColumnsAmount() {
         return vectors[0].getSize();
     }
 
     public Vector getVectorByIndex(int index) {
-        if (index < 0 || index >= getHeight()) {
-            throw new IndexOutOfBoundsException("index must be 0 <= index < height. index = " + index + ", height = " + getHeight());
+        if (index < 0 || index >= getStringsAmount()) {
+            throw new IndexOutOfBoundsException("index must be 0 <= index < matrix's strings amount. index = " + index +
+                    ", matrix's strings amount = " + getStringsAmount());
         }
 
         return vectors[index];
     }
 
     public void setVectorByIndex(int index, Vector vector) {
-        if (vector.getSize() != getLength()) {
-            throw new IllegalArgumentException("vector's length must be equal to matrix's length. vector's length = " + vector.getSize() +
-                    ", matrix's length = " + getLength());
+        if (vector.getSize() != getColumnsAmount()) {
+            throw new IllegalArgumentException("vector's length must be equal to matrix's columns amount. " +
+                    "vector's length = " + vector.getSize() + ", matrix's columns amount = " + getColumnsAmount());
         }
 
         vectors[index] = new Vector(vector);
     }
 
     public Vector getColumnByIndex(int index) {
-        if (index < 0 || index >= getLength()) {
-            throw new IndexOutOfBoundsException("index must me 0 <= index < matrix's length. index = " + index +
-                    ", matrix's length = " + getLength());
+        if (index < 0 || index >= getColumnsAmount()) {
+            throw new IndexOutOfBoundsException("index must me 0 <= index < matrix's columns amount. index = " + index +
+                    ", matrix's columns amount = " + getColumnsAmount());
         }
 
-        Vector vector = new Vector(getHeight());
+        Vector vector = new Vector(getStringsAmount());
 
-        for (int i = 0; i < getHeight(); i++) {
+        for (int i = 0; i < getStringsAmount(); i++) {
             vector.setComponentByIndex(i, vectors[i].getComponentByIndex(index));
         }
 
@@ -99,7 +100,7 @@ public class Matrix {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder("{");
 
-        for (int i = 0; i < getHeight(); i++) {
+        for (int i = 0; i < getStringsAmount(); i++) {
             stringBuilder.append(vectors[i]).append(", ");
         }
 
@@ -119,7 +120,8 @@ public class Matrix {
         }
 
         Matrix matrix = (Matrix) o;
-        return getHeight() == matrix.getHeight() && getLength() == matrix.getLength() && Arrays.equals(vectors, matrix.vectors);
+        return getStringsAmount() == matrix.getStringsAmount() && getColumnsAmount() == matrix.getColumnsAmount()
+                && Arrays.equals(vectors, matrix.vectors);
     }
 
     @Override
@@ -131,12 +133,13 @@ public class Matrix {
     }
 
     public Matrix add(Matrix matrix) {
-        if (getHeight() != matrix.getHeight() || getLength() != matrix.getLength()) {
-            throw new IllegalArgumentException("matrices' dimensions are not equal. n1 = " + getHeight() + ", m1 = " + getLength() +
-                    ", n2 = " + matrix.getHeight() + ", m2 = " + matrix.getLength());
+        if (getStringsAmount() != matrix.getStringsAmount() || getColumnsAmount() != matrix.getColumnsAmount()) {
+            throw new IllegalArgumentException("matrices' dimensions are not equal. " +
+                    "matrix1's strings amount = " + getStringsAmount() + ", matrix1's columns amount = " + getColumnsAmount() +
+                    ", matrix2's strings amount = " + matrix.getStringsAmount() + ", matrix2's columns amount = " + matrix.getColumnsAmount());
         }
 
-        for (int i = 0; i < getHeight(); i++) {
+        for (int i = 0; i < getStringsAmount(); i++) {
             vectors[i].add(matrix.vectors[i]);
         }
 
@@ -145,12 +148,13 @@ public class Matrix {
     }
 
     public Matrix subtract(Matrix matrix) {
-        if (getHeight() != matrix.getHeight() || getLength() != matrix.getLength()) {
-            throw new IllegalArgumentException("matrices' dimensions are not equal. n1 = " + getHeight() + ", m1 = " + getLength() +
-                    ", n2 = " + matrix.getHeight() + ", m2 = " + matrix.getLength());
+        if (getStringsAmount() != matrix.getStringsAmount() || getColumnsAmount() != matrix.getColumnsAmount()) {
+            throw new IllegalArgumentException("matrices' dimensions are not equal. " +
+                    "matrix1's strings amount = " + getStringsAmount() + ", matrix1's columns amount = " + getColumnsAmount() +
+                    ", matrix2's strings amount = " + matrix.getStringsAmount() + ", matrix2's columns amount = " + matrix.getColumnsAmount());
         }
 
-        for (int i = 0; i < getHeight(); i++) {
+        for (int i = 0; i < getStringsAmount(); i++) {
             vectors[i].subtract(matrix.vectors[i]);
         }
 
@@ -159,10 +163,10 @@ public class Matrix {
     }
 
     public Matrix transpose() {
-        Matrix tempMatrix = new Matrix(getLength(), getHeight());
+        Matrix tempMatrix = new Matrix(getColumnsAmount(), getStringsAmount());
 
-        for (int i = 0; i < getLength(); i++) {
-            for (int j = 0; j < getHeight(); j++) {
+        for (int i = 0; i < getColumnsAmount(); i++) {
+            for (int j = 0; j < getStringsAmount(); j++) {
                 tempMatrix.vectors[i].setComponentByIndex(j, vectors[j].getComponentByIndex(i));
             }
         }
@@ -183,13 +187,14 @@ public class Matrix {
     public Matrix multiplyByVector(Vector vector) {
         Matrix matrix;
 
-        if (getHeight() == vector.getSize()) {
+        if (getStringsAmount() == vector.getSize()) {
             matrix = new Matrix(Matrix.getMultiplication(this, new Matrix(new Vector[]{vector})));
-        } else if (getLength() == vector.getSize()) {
+        } else if (getColumnsAmount() == vector.getSize()) {
             matrix = new Matrix(Matrix.getMultiplication(this, new Matrix(new Vector[]{vector}).transpose()));
         } else {
-            throw new IllegalArgumentException("vector's length must be equal to matrix's height or length. vector's length = " +
-                    vector.getSize() + ", matrix's height = " + getHeight() + ", matrix's length =" + getLength());
+            throw new IllegalArgumentException("vector's length must be equal to matrix's strings or columns amount. " +
+                    "vector's length = " + vector.getSize() +
+                    ", matrix's strings amount = " + getStringsAmount() + ", matrix's columns amount =" + getColumnsAmount());
         }
 
         vectors = matrix.vectors;
@@ -198,22 +203,23 @@ public class Matrix {
     }
 
     public double getMatrixDeterminant() {
-        if (getHeight() != getLength()) {
-            throw new IllegalArgumentException("matrix's dimensions must be equal. height = " + getHeight() + ", length = " + getLength());
+        if (getStringsAmount() != getColumnsAmount()) {
+            throw new IllegalArgumentException("matrix's dimensions must be equal. " +
+                    "matrix's strings amount = " + getStringsAmount() + ", matrix's columns amount = " + getColumnsAmount());
         }
 
-        if (getHeight() == 1) {
+        if (getStringsAmount() == 1) {
             return vectors[0].getComponentByIndex(0);
         }
 
-        if (getHeight() == 2) {
+        if (getStringsAmount() == 2) {
             return vectors[0].getComponentByIndex(0) * vectors[1].getComponentByIndex(1) -
                     vectors[1].getComponentByIndex(0) * vectors[0].getComponentByIndex(1);
         }
 
         double determinant = 0;
 
-        for (int i = 0; i < getLength(); i++) {
+        for (int i = 0; i < getColumnsAmount(); i++) {
             determinant += Math.pow(-1, 1 + (i + 1)) * vectors[0].getComponentByIndex(i) *
                     this.getMatrixWithCrossedOutStrAndCol(0, i).getMatrixDeterminant();
         }
@@ -222,29 +228,30 @@ public class Matrix {
     }
 
     private Matrix getMatrixWithCrossedOutStrAndCol(@SuppressWarnings("SameParameterValue") int k, int l) {
-        if (k < 0 || k >= getHeight() || l < 0 || l >= getLength()) {
-            throw new IndexOutOfBoundsException("k must be 0 <= k < height and l must be 0 <= l <= length. k = " + k + ", l = " + l +
-                    ", height = " + getHeight() + ", length = " + getLength());
+        if (k < 0 || k >= getStringsAmount() || l < 0 || l >= getColumnsAmount()) {
+            throw new IndexOutOfBoundsException("k must be 0 <= k < strings amount and l must be 0 <= l <= columns amount. " +
+                    "k = " + k + ", l = " + l +
+                    ", matrix's strings amount = " + getStringsAmount() + ", matrix's columns amount = " + getColumnsAmount());
         }
 
-        Matrix matrix = new Matrix(getHeight() - 1, getLength() - 1);
+        Matrix matrix = new Matrix(getStringsAmount() - 1, getColumnsAmount() - 1);
 
         for (int i = 0; i < k; i++) {
             for (int j = 0; j < l; j++) {
                 matrix.vectors[i].setComponentByIndex(j, vectors[i].getComponentByIndex(j));
             }
 
-            for (int j = l + 1; j < getLength(); j++) {
+            for (int j = l + 1; j < getColumnsAmount(); j++) {
                 matrix.vectors[i].setComponentByIndex(j - 1, vectors[i].getComponentByIndex(j));
             }
         }
 
-        for (int i = k + 1; i < getHeight(); i++) {
+        for (int i = k + 1; i < getStringsAmount(); i++) {
             for (int j = 0; j < l; j++) {
                 matrix.vectors[i - 1].setComponentByIndex(j, vectors[i].getComponentByIndex(j));
             }
 
-            for (int j = l + 1; j < getLength(); j++) {
+            for (int j = l + 1; j < getColumnsAmount(); j++) {
                 matrix.vectors[i - 1].setComponentByIndex(j - 1, vectors[i].getComponentByIndex(j));
             }
         }
@@ -253,9 +260,10 @@ public class Matrix {
     }
 
     public static Matrix getSum(Matrix matrix1, Matrix matrix2) {
-        if (matrix1.getHeight() != matrix2.getHeight() || matrix1.getLength() != matrix2.getLength()) {
-            throw new IllegalArgumentException("matrices' dimensions are not equal. n1 = " + matrix1.getHeight() + ", m1 = " +
-                    matrix1.getLength() + ", n2 = " + matrix2.getHeight() + ", m2 = " + matrix2.getHeight());
+        if (matrix1.getStringsAmount() != matrix2.getStringsAmount() || matrix1.getColumnsAmount() != matrix2.getColumnsAmount()) {
+            throw new IllegalArgumentException("matrices' dimensions are not equal. " +
+                    "matrix1's strings amount = " + matrix1.getStringsAmount() + ", matrix1's columns amount = " + matrix1.getColumnsAmount() +
+                    ", matrix2's strings amount = " + matrix2.getStringsAmount() + ", matrix2's columns amount = " + matrix2.getStringsAmount());
         }
 
         Matrix resultMatrix;
@@ -267,9 +275,10 @@ public class Matrix {
     }
 
     public static Matrix getDifference(Matrix matrix1, Matrix matrix2) {
-        if (matrix1.getHeight() != matrix2.getHeight() || matrix1.getLength() != matrix2.getLength()) {
-            throw new IllegalArgumentException("matrices' dimensions are not equal. n1 = " + matrix1.getHeight() + ", m1 = " +
-                    matrix1.getLength() + ", n2 = " + matrix2.getHeight() + ", m2 = " + matrix2.getHeight());
+        if (matrix1.getStringsAmount() != matrix2.getStringsAmount() || matrix1.getColumnsAmount() != matrix2.getColumnsAmount()) {
+            throw new IllegalArgumentException("matrices' dimensions are not equal. " +
+                    "matrix1's strings amount = " + matrix1.getStringsAmount() + ", matrix1's columns amount = " + matrix1.getColumnsAmount() +
+                    ", matrix2's strings amount = " + matrix2.getStringsAmount() + ", matrix2's columns amount = " + matrix2.getStringsAmount());
         }
 
         Matrix resultMatrix;
@@ -281,17 +290,18 @@ public class Matrix {
     }
 
     public static Matrix getMultiplication(Matrix matrix1, Matrix matrix2) {
-        if (matrix1.getLength() != matrix2.getHeight()) {
-            throw new IllegalArgumentException("matrices' dimensions are not proper. matrix1's length must me equal to matrix2's height. " +
-                    "matrix1's length = " + matrix1.getLength() + ", matrix2's height = " + matrix2.getHeight());
+        if (matrix1.getColumnsAmount() != matrix2.getStringsAmount()) {
+            throw new IllegalArgumentException("matrices' dimensions are not proper. " +
+                    "matrix1's columns amount must me equal to matrix2's strings amount. " +
+                    "matrix1's columns amount = " + matrix1.getColumnsAmount() + ", matrix2's strings amount = " + matrix2.getStringsAmount());
         }
 
-        Matrix resultMatrix = new Matrix(matrix1.getHeight(), matrix2.getLength());
+        Matrix resultMatrix = new Matrix(matrix1.getStringsAmount(), matrix2.getColumnsAmount());
         Matrix tempMatrix = new Matrix(matrix2);
         tempMatrix.transpose();
 
-        for (int i = 0; i < resultMatrix.getHeight(); i++) {
-            for (int j = 0; j < resultMatrix.getLength(); j++) {
+        for (int i = 0; i < resultMatrix.getStringsAmount(); i++) {
+            for (int j = 0; j < resultMatrix.getColumnsAmount(); j++) {
                 resultMatrix.vectors[i].setComponentByIndex(j, Vector.getScalarProduct(matrix1.vectors[i], tempMatrix.vectors[j]));
             }
         }
