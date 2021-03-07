@@ -10,6 +10,10 @@ public class Main {
             throw new IllegalArgumentException("shapesArray.length must be > 0");
         }
 
+        if (shapesArray.length == 1) {
+            return shapesArray[0];
+        }
+
         Arrays.sort(shapesArray, new ShapesAreaComparator());
 
         return shapesArray[shapesArray.length - 1];
@@ -20,13 +24,20 @@ public class Main {
             throw new IllegalArgumentException("shapesArray.length must be > 0");
         }
 
+        if (shapesArray.length == 1) {
+            return shapesArray[0];
+        }
+
         Arrays.sort(shapesArray, new ShapesPerimeterComparator());
 
         return shapesArray[shapesArray.length - 2];
     }
 
     public static void main(String[] args) {
-        Shape[] shapesArray = new Shape[]{
+        System.out.println(new Triangle(1, 2, 3, 4, 5, 6));
+
+
+        Shape[] shapesArray = {
                 new Circle(1.1),
                 new Square(3),
                 new Triangle(1, 1, 2, 2, 2, 1),
