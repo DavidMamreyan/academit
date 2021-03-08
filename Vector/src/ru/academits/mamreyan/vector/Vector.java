@@ -184,8 +184,8 @@ public class Vector {
         return Math.sqrt(temp);
     }
 
-    public Vector trimZeroComponents(int n) { // Удалить n нулевых компонентов справа
-        if (n <= 0) {
+    public Vector trimZeroComponents(int length) { // Удалить length нулевых компонентов справа
+        if (length <= 0) {
             return this;
         }
 
@@ -204,14 +204,14 @@ public class Vector {
             return this;
         }
 
-        if (n >= i) {
+        if (length >= i) {
             if (i == getSize()) {
                 components = new double[]{0.0};
             } else {
                 components = Arrays.copyOf(components, getSize() - i);
             }
         } else {
-            components = Arrays.copyOf(components, getSize() - n);
+            components = Arrays.copyOf(components, getSize() - length);
         }
 
         return this;
@@ -223,12 +223,12 @@ public class Vector {
         return this;
     }
 
-    public Vector appendZeroComponents(int n) { // Добавить n нулевых компонентов справа
-        if (n <= 0) {
+    public Vector appendZeroComponents(int length) { // Добавить length нулевых компонентов справа
+        if (length <= 0) {
             return this;
         }
 
-        components = Arrays.copyOf(components, components.length + n);
+        components = Arrays.copyOf(components, components.length + length);
 
         return this;
     }
