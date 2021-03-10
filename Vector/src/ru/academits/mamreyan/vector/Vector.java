@@ -5,37 +5,41 @@ import java.util.Arrays;
 public class Vector {
     private double[] components;
 
-    public Vector(int length) {
-        if (length <= 0) {
-            throw new IllegalArgumentException("length must be > 0. length = " + length);
+    public Vector(int size) {
+        if (size <= 0) {
+            throw new IllegalArgumentException("size must be > 0. size = " + size);
         }
 
-        components = new double[length];
+        components = new double[size];
     }
 
     public Vector(Vector vector) {
-        components = Arrays.copyOf(vector.components, vector.getSize());
+        components = Arrays.copyOf(vector.components, vector.components.length);
     }
 
 
-    public Vector(int length, Vector vector) {
-        components = Arrays.copyOf(vector.components, Math.max(length, vector.getSize()));
+    public Vector(int size, Vector vector) {
+        if (size <= 0) {
+            throw new IllegalArgumentException("size must be > 0. size = " + size);
+        }
+
+        components = Arrays.copyOf(vector.components, size);
     }
 
     public Vector(double[] components) {
         if (components.length == 0) {
-            throw new IllegalArgumentException("components.length cannot be 0");
+            throw new IllegalArgumentException("arrays length cannot be 0");
         }
 
         this.components = Arrays.copyOf(components, components.length);
     }
 
-    public Vector(int length, double[] components) {
-        if (length <= 0 && components.length == 0) {
-            throw new IllegalArgumentException("length must be > 0. length = " + length);
+    public Vector(int size, double[] components) {
+        if (size <= 0) {
+            throw new IllegalArgumentException("size must be > 0. size = " + size);
         }
 
-        this.components = Arrays.copyOf(components, Math.max(length, components.length));
+        this.components = Arrays.copyOf(components, size);
     }
 
     @Override
@@ -79,7 +83,8 @@ public class Vector {
 
     public double getComponentByIndex(int index) {
         if (index < 0 || index >= components.length) {
-            throw new IndexOutOfBoundsException("index must be 0 <= index < components.length. index = " + index);
+            throw new IndexOutOfBoundsException("index must be 0 <= index < vector's size. index = " + index +
+                    ", vector's size = " + components.length);
         }
 
         return components[index];
@@ -87,26 +92,25 @@ public class Vector {
 
     public void setComponentByIndex(int index, double component) {
         if (index < 0 || index >= components.length) {
-            throw new IndexOutOfBoundsException("index must be 0 <= index < components.length. index = " + index);
+            throw new IndexOutOfBoundsException("index must be 0 <= index < vector's size. index = " + index +
+                    ", vector's size = " + components.length);
         }
 
         components[index] = component;
     }
 
     public static Vector getSum(Vector vector1, Vector vector2) {
-        Vector resultVector;
-        Vector tempVector = new Vector(vector1);
+        Vector resultVector = new Vector(vector1);
 
-        resultVector = tempVector.add(vector2);
+        resultVector = resultVector.add(vector2);
 
         return resultVector;
     }
 
     public static Vector getDifference(Vector vector1, Vector vector2) {
-        Vector resultVector;
-        Vector tempVector = new Vector(vector1);
+        Vector resultVector = new Vector(vector1);
 
-        resultVector = tempVector.subtract(vector2);
+        resultVector = resultVector.subtract(vector2);
 
         return resultVector;
     }
@@ -114,7 +118,9 @@ public class Vector {
     public static double getScalarProduct(Vector vector1, Vector vector2) {
         double scalarProduct = 0.0;
 
-        for (int i = 0, minSize = Math.min(vector1.getSize(), vector2.getSize()); i < minSize; i++) {
+        int minSize = Math.min(vector1.components.length, vector2.components.length);
+
+        for (int i = 0; i < minSize; i++) {
             scalarProduct += vector1.components[i] * vector2.components[i];
         }
 
@@ -122,39 +128,25 @@ public class Vector {
     }
 
     public Vector add(Vector vector) {
-        int appendixLength = 0;
-
-        if (getSize() > vector.getSize()) {
-            appendixLength = getSize() - vector.getSize();
-            vector.appendZeroComponents(appendixLength);
-        } else if (getSize() < vector.getSize()) {
-            appendZeroComponents(vector.getSize() - getSize());
+        if (components.length < vector.components.length) {
+            components = Arrays.copyOf(components, vector.components.length);
         }
 
-        for (int i = 0, size = getSize(); i < size; i++) {
+        for (int i = 0; i < vector.components.length; i++) {
             components[i] += vector.components[i];
         }
-
-        vector.trimZeroComponents(appendixLength);
 
         return this;
     }
 
     public Vector subtract(Vector vector) {
-        int appendixLength = 0;
-
-        if (getSize() > vector.getSize()) {
-            appendixLength = getSize() - vector.getSize();
-            vector.appendZeroComponents(appendixLength);
-        } else if (getSize() < vector.getSize()) {
-            appendZeroComponents(vector.getSize() - getSize());
+        if (components.length < vector.components.length) {
+            components = Arrays.copyOf(components, vector.components.length);
         }
 
-        for (int i = 0, size = getSize(); i < size; i++) {
+        for (int i = 0; i < vector.components.length; i++) {
             components[i] -= vector.components[i];
         }
-
-        vector.trimZeroComponents(appendixLength);
 
         return this;
     }
@@ -166,7 +158,7 @@ public class Vector {
     }
 
     public Vector multiplyByScalar(double scalar) {
-        for (int i = 0, size = getSize(); i < size; i++) {
+        for (int i = 0, size = components.length; i < size; i++) {
             components[i] *= scalar;
         }
 
@@ -174,62 +166,12 @@ public class Vector {
     }
 
     public double getLength() {
-        double temp = 0;
+        double sum = 0;
 
-        for (double e :
-                components) {
-            temp += e * e;
+        for (double e : components) {
+            sum += e * e;
         }
 
-        return Math.sqrt(temp);
-    }
-
-    public Vector trimZeroComponents(int length) { // Удалить length нулевых компонентов справа
-        if (length <= 0) {
-            return this;
-        }
-
-        int i = 0;
-        final double epsilon = 1e-5;
-
-        for (double c : components) {
-            if (c < epsilon && c > -epsilon) {
-                i++;
-            } else {
-                i = 0;
-            }
-        }
-
-        if (i == 0) {
-            return this;
-        }
-
-        if (length >= i) {
-            if (i == getSize()) {
-                components = new double[]{0.0};
-            } else {
-                components = Arrays.copyOf(components, getSize() - i);
-            }
-        } else {
-            components = Arrays.copyOf(components, getSize() - length);
-        }
-
-        return this;
-    }
-
-    public Vector trimZeroComponents() { // Удалить все нулевые компоненты справа
-        trimZeroComponents(getSize());
-
-        return this;
-    }
-
-    public Vector appendZeroComponents(int length) { // Добавить length нулевых компонентов справа
-        if (length <= 0) {
-            return this;
-        }
-
-        components = Arrays.copyOf(components, components.length + length);
-
-        return this;
+        return Math.sqrt(sum);
     }
 }

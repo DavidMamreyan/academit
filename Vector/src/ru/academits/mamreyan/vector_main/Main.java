@@ -101,26 +101,5 @@ public class Main {
         v1.setComponentByIndex(2, 3);
 
         System.out.println(v1);
-
-        System.out.println("__________________");
-
-        v1 = new Vector(new double[]{0, 0, 0, 6, 7, 8, 0, 0, 0});
-
-        System.out.println(v1);
-        System.out.println(v1.trimZeroComponents());
-
-        System.out.println("__________________");
-
-        v1 = new Vector(new double[]{0, 0, 0, 6, 7, 8, 0, 0, 0});
-
-        System.out.println(v1);
-        System.out.println(v1.trimZeroComponents(1));
-
-        System.out.println("__________________");
-
-        v2 = new Vector(new double[]{1, 2});
-
-        System.out.println(v2);
-        System.out.println(v2.appendZeroComponents(2));
     }
 }
