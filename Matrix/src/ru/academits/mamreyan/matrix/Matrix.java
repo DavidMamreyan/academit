@@ -100,8 +100,8 @@ public class Matrix {
         }
 
         if (vector.getSize() != getColumnsAmount()) {
-            throw new IllegalArgumentException("vector's length must be equal to matrix's columns amount. " +
-                    "vector's length = " + vector.getSize() + ", matrix's columns amount = " + getColumnsAmount());
+            throw new IllegalArgumentException("vector's size must be equal to matrix's columns amount. " +
+                    "vector's size = " + vector.getSize() + ", matrix's columns amount = " + getColumnsAmount());
         }
 
         strings[index] = new Vector(vector);
@@ -200,8 +200,8 @@ public class Matrix {
 
     public Vector multiplyByVector(Vector vector) {
         if (vector.getSize() != getStringsAmount() && vector.getSize() != getColumnsAmount()) {
-            throw new IllegalArgumentException("vector's length must be equal to matrix's strings or columns amount. " +
-                    "vector's length = " + vector.getSize() +
+            throw new IllegalArgumentException("vector's size must be equal to matrix's strings or columns amount. " +
+                    "vector's size = " + vector.getSize() +
                     ", matrix's strings amount = " + getStringsAmount() + ", matrix's columns amount =" + getColumnsAmount());
         }
 
