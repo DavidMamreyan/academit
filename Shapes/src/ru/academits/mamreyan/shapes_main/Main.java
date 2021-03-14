@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class Main {
     public static Shape getMaxAreaShape(Shape[] shapesArray) {
         if (shapesArray.length == 0) {
-            throw new IllegalArgumentException("shapesArray.length must be > 0");
+            throw new IllegalArgumentException("array's length must be > 0");
         }
 
         if (shapesArray.length == 1) {
@@ -20,12 +20,8 @@ public class Main {
     }
 
     public static Shape getSecondPerimeterShape(Shape[] shapesArray) {
-        if (shapesArray.length == 0) {
-            throw new IllegalArgumentException("shapesArray.length must be > 0");
-        }
-
-        if (shapesArray.length == 1) {
-            return shapesArray[0];
+        if (shapesArray.length < 2) {
+            throw new IllegalArgumentException("array's length must be >= 2");
         }
 
         Arrays.sort(shapesArray, new ShapesPerimeterComparator());
@@ -35,7 +31,6 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println(new Triangle(1, 2, 3, 4, 5, 6));
-
 
         Shape[] shapesArray = {
                 new Circle(1.1),
