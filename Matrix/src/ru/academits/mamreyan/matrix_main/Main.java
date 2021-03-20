@@ -58,24 +58,12 @@ public class Main {
         matrix1 = new Matrix(new double[][]{{76, 40, 82, 13}, {21, 80, 2, 53}, {31, 23, 70, 42}, {5, 84, 35, 94}});
 
         System.out.println(matrix1);
-        System.out.println("asd = " + matrix1.getDeterminant());
+        System.out.println(matrix1.getDeterminant());
 
         System.out.println("__________________");
 
         matrix1 = new Matrix(new double[][]{{1, 2}, {2, 3}, {3, 4}});
-        Vector vector = new Vector(new double[]{1, 2, 3});
-
-        System.out.println(matrix1);
-        System.out.println(matrix1.getRowsAmount());
-        System.out.println(matrix1.getColumnsAmount());
-        System.out.println(vector);
-        System.out.println(vector.getSize());
-        System.out.println(matrix1.multiplyByVector(vector));
-
-        System.out.println("__________________");
-
-        matrix1 = new Matrix(new double[][]{{1, 2}, {2, 3}, {3, 4}});
-        vector = new Vector(new double[]{1, 2});
+        Vector vector = new Vector(new double[]{1, 2});
 
         System.out.println(matrix1);
         System.out.println(matrix1.getRowsAmount());
