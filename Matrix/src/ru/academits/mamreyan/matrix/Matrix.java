@@ -207,7 +207,7 @@ public class Matrix {
         resultVector = new Vector(getRowsAmount());
 
         for (int i = 0; i < resultVector.getSize(); i++) {
-            resultVector.setComponentByIndex(i, Vector.getScalarProduct(getRowByIndex(i), vector));
+            resultVector.setComponentByIndex(i, Vector.getScalarProduct(rows[i], vector));
         }
 
         return resultVector;
