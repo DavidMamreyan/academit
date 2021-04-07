@@ -151,21 +151,21 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new MyListIterator();
+        return new MyArrayListIterator();
     }
 
     public Iterator<T> iterator(int index) {
-        return new MyListIterator(index);
+        return new MyArrayListIterator(index);
     }
 
-    private class MyListIterator implements Iterator<T> {
+    private class MyArrayListIterator implements Iterator<T> {
         int currentIndex = -1;
         int expectedModCount = modCount;
 
-        MyListIterator() {
+        MyArrayListIterator() {
         }
 
-        MyListIterator(int index) {
+        MyArrayListIterator(int index) {
             indexCheck(index);
 
             currentIndex = index;
