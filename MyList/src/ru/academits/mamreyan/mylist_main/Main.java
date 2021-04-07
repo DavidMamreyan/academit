@@ -6,62 +6,62 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        MyList<Integer> names = new MyList<>();
-        System.out.println(Arrays.toString(names.toArray()));
+        MyList<Integer> numbers = new MyList<>();
+        System.out.println(Arrays.toString(numbers.toArray()));
 
-        names = new MyList<>(5);
-        System.out.println(Arrays.toString(names.toArray()));
+        numbers = new MyList<>(5);
+        System.out.println(Arrays.toString(numbers.toArray()));
 
-        names = new MyList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
-        System.out.println(Arrays.toString(names.toArray()));
+        numbers = new MyList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
+        System.out.println(Arrays.toString(numbers.toArray()));
 
-        names.add(10);
+        numbers.add(10);
 
-        System.out.println(Arrays.toString(names.toArray()));
+        System.out.println(Arrays.toString(numbers.toArray()));
 
-        names.add(11, 11);
+        numbers.add(11, 11);
 
-        System.out.println(Arrays.toString(names.toArray()));
+        System.out.println(Arrays.toString(numbers.toArray()));
 
-        names.add(0, -1);
+        numbers.add(0, -1);
 
-        System.out.println(Arrays.toString(names.toArray()));
+        System.out.println(Arrays.toString(numbers.toArray()));
 
-        names.remove((Integer) 11);
+        numbers.remove((Integer) 11);
 
-        System.out.println(Arrays.toString(names.toArray()));
+        System.out.println(Arrays.toString(numbers.toArray()));
 
-        names.remove((Integer) 10);
+        numbers.remove((Integer) 10);
 
-        System.out.println(Arrays.toString(names.toArray()));
+        System.out.println(Arrays.toString(numbers.toArray()));
 
-        names.remove(0);
+        numbers.remove(0);
 
-        System.out.println(Arrays.toString(names.toArray()));
+        System.out.println(Arrays.toString(numbers.toArray()));
 
-        names.addAll(Arrays.asList(8, 7, 6, 5, 4, 3, 2, 1, 0));
+        numbers.addAll(Arrays.asList(8, 7, 6, 5, 4, 3, 2, 1, 0));
 
-        System.out.println(Arrays.toString(names.toArray()));
+        System.out.println(Arrays.toString(numbers.toArray()));
 
-        System.out.println(Arrays.toString(names.allIndicesOf(8)));
+        System.out.println(Arrays.toString(numbers.allIndicesOf(8)));
 
-        names.removeAll(Arrays.asList(0, 3, 6));
+        numbers.removeAll(Arrays.asList(0, 3, 6));
 
-        System.out.println(Arrays.toString(names.toArray()));
+        System.out.println(Arrays.toString(numbers.toArray()));
 
-        names.ensureFreeSpace(10);
-        names.trimToSize();
+        numbers.ensureFreeSpace(10);
+        numbers.trimToSize();
 
-        names.retainAll(Arrays.asList(1, 4, 8, 9));
+        numbers.retainAll(Arrays.asList(1, 4, 8, 9));
 
-        System.out.println(Arrays.toString(names.toArray()));
+        System.out.println(Arrays.toString(numbers.toArray()));
 
-        names.clear();
+        numbers.clear();
 
-        System.out.println(Arrays.toString(names.toArray()));
+        System.out.println(Arrays.toString(numbers.toArray()));
 
-        names.addAll(Arrays.asList(10, 11, 12, 11, 10));
+        numbers.addAll(Arrays.asList(10, 11, 12, 11, 10));
 
-        System.out.println(Arrays.toString(names.toArray()));
+        System.out.println(Arrays.toString(numbers.toArray()));
     }
 }
