@@ -213,10 +213,4 @@ public class MyLinkedList<T> {
 
         return string.toString();
     }
-
-    /*
-
-    •	копирование списка
-
-    */
 }
