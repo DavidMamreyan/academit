@@ -1,18 +1,18 @@
-package ru.academits.mamreyan.mylist_main;
+package ru.academits.mamreyan.myarraylist_main;
 
-import ru.academits.mamreyan.mylist.MyList;
+import ru.academits.mamreyan.myarraylist.MyArrayList;
 
 import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        MyList<Integer> numbers = new MyList<>();
+        MyArrayList<Integer> numbers = new MyArrayList<>();
         System.out.println(Arrays.toString(numbers.toArray()));
 
-        numbers = new MyList<>(5);
+        numbers = new MyArrayList<>(5);
         System.out.println(Arrays.toString(numbers.toArray()));
 
-        numbers = new MyList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
+        numbers = new MyArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
         System.out.println(Arrays.toString(numbers.toArray()));
 
         numbers.add(10);

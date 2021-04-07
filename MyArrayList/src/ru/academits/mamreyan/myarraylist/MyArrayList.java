@@ -1,20 +1,20 @@
-package ru.academits.mamreyan.mylist;
+package ru.academits.mamreyan.myarraylist;
 
 import java.util.*;
 
 @SuppressWarnings("unchecked")
-public class MyList<T> implements List<T> {
+public class MyArrayList<T> implements List<T> {
     private T[] items;
     private int size;
     private final int DEFAULT_CAPACITY = 10;
     int modCount = 0;
 
-    public MyList() {
+    public MyArrayList() {
         items = (T[]) new Object[DEFAULT_CAPACITY];
         size = 0;
     }
 
-    public MyList(int initialCapacity) {
+    public MyArrayList(int initialCapacity) {
         if (initialCapacity > 0) {
             items = (T[]) new Object[initialCapacity];
             size = 0;
@@ -27,7 +27,7 @@ public class MyList<T> implements List<T> {
         }
     }
 
-    public MyList(List<T> list) {
+    public MyArrayList(List<T> list) {
         items = (T[]) list.toArray();
         size = list.size();
     }
@@ -126,7 +126,7 @@ public class MyList<T> implements List<T> {
     }
 
     public int[] allIndicesOf(Object object) { // возвращает массив всех индексов, элементы по которым равны переданному объекту
-        MyList<Integer> indicesList = new MyList<>();
+        MyArrayList<Integer> indicesList = new MyArrayList<>();
 
         int start;
         int end = size;
@@ -201,7 +201,7 @@ public class MyList<T> implements List<T> {
 
             checkForComodification();
 
-            MyList.this.remove(currentIndex);
+            MyArrayList.this.remove(currentIndex);
             expectedModCount = modCount;
             currentIndex--;
         }
