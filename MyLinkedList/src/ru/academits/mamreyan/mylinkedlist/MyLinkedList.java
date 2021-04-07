@@ -17,6 +17,17 @@ public class MyLinkedList<T> {
         }
     }
 
+    public MyLinkedList(MyLinkedList<T> list) {
+        size = list.size;
+        head = new MyLinkedListItem<>(list.head.getData());
+
+        for (MyLinkedListItem<T> p1 = head, p2 = list.head;
+             p1 != null && p2.getNext() != null;
+             p1 = p1.getNext(), p2 = p2.getNext()) {
+            p1.setNext(new MyLinkedListItem<>(p2.getNext().getData()));
+        }
+    }
+
     public int size() {
         return size;
     }
@@ -160,7 +171,7 @@ public class MyLinkedList<T> {
         return true;
     }
 
-    public MyLinkedList<T> reverseList() {
+    public MyLinkedList<T> reverse() {
         MyLinkedListItem<T> prev = head, p = head.getNext(), next = p.getNext();
 
         for (;
@@ -174,6 +185,10 @@ public class MyLinkedList<T> {
         head = p;
 
         return this;
+    }
+
+    public MyLinkedList<T> copy() {
+        return new MyLinkedList<>(this);
     }
 
     private void checkIndex(int index) {
@@ -201,16 +216,6 @@ public class MyLinkedList<T> {
 
     /*
 
-    получение размера списка
-    получение значение первого элемента
-    получение/изменение значения по указанному индексу.
-    Изменение значения по индексу пусть выдает старое значение.
-    удаление элемента по индексу, пусть выдает значение элемента
-    вставка элемента в начало
-    вставка элемента по индексу
-    удаление узла по значению, пусть выдает true, если элемент был удален
-    удаление первого элемента, пусть выдает значение элемента
-    разворот списка за линейное время
     •	копирование списка
 
     */

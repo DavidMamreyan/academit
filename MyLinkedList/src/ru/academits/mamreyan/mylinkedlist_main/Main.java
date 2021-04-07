@@ -40,6 +40,6 @@ public class Main {
         System.out.println(numbers);
         System.out.println(numbers.remove("9"));
         System.out.println(numbers);
-        System.out.println(numbers.reverseList());
+        System.out.println(numbers.copy().reverse());
     }
 }
