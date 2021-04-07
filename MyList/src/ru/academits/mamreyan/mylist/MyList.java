@@ -128,7 +128,10 @@ public class MyList<T> implements List<T> {
     public int[] allIndicesOf(Object object) { // возвращает массив всех индексов, элементы по которым равны переданному объекту
         MyList<Integer> indicesList = new MyList<>();
 
-        for (int start, end = size, index = indexOf(object); index != -1; index = indexOfRange(object, start, end)) {
+        int start;
+        int end = size;
+
+        for (int index = indexOf(object); index != -1; index = indexOfRange(object, start, end)) {
             indicesList.add(index);
             start = index + 1;
         }
@@ -343,7 +346,7 @@ public class MyList<T> implements List<T> {
         boolean isChanged = false;
         boolean needsRemoving;
 
-        for (Iterator<T> iterator = iterator(0); iterator.hasNext(); ) {
+        for (Iterator<T> iterator = iterator(); iterator.hasNext(); ) {
             Object element1 = iterator.next();
 
             needsRemoving = true;

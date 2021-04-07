@@ -52,7 +52,7 @@ public class Main {
         numbers.ensureFreeSpace(10);
         numbers.trimToSize();
 
-        numbers.retainAll(Arrays.asList(1, 4, 8, 9));
+        numbers.retainAll(Arrays.asList(2, 4, 6, 8));
 
         System.out.println(Arrays.toString(numbers.toArray()));
 
