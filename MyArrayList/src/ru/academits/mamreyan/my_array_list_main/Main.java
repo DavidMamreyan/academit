@@ -1,6 +1,6 @@
-package ru.academits.mamreyan.myarraylist_main;
+package ru.academits.mamreyan.my_array_list_main;
 
-import ru.academits.mamreyan.myarraylist.MyArrayList;
+import ru.academits.mamreyan.my_array_list.MyArrayList;
 
 import java.util.Arrays;
 

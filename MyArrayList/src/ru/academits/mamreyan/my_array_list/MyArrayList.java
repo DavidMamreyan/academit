@@ -1,4 +1,4 @@
-package ru.academits.mamreyan.myarraylist;
+package ru.academits.mamreyan.my_array_list;
 
 import java.util.*;
 
