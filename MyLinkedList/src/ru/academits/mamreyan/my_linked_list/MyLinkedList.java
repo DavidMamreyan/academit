@@ -12,22 +12,21 @@ public class MyLinkedList<T> {
 
     public MyLinkedList(T data) {
         head = new ListItem<>(data);
-
-        for (ListItem<T> current = head; current != null; current = current.getNext()) {
-            size++;
-        }
+        size = 1;
     }
 
     public MyLinkedList(MyLinkedList<T> list) {
-        if (list.size != 0) {
-            size = list.size;
-            head = new ListItem<>(list.head.getData());
+        if (list.size == 0) {
+            return;
+        }
 
-            for (ListItem<T> current1 = head, current2 = list.head;
-                 current1 != null && current2.getNext() != null;
-                 current1 = current1.getNext(), current2 = current2.getNext()) {
-                current1.setNext(new ListItem<>(current2.getNext().getData()));
-            }
+        size = list.size;
+        head = new ListItem<>(list.head.getData());
+
+        for (ListItem<T> current1 = head, current2 = list.head;
+             current2.getNext() != null;
+             current1 = current1.getNext(), current2 = current2.getNext()) {
+            current1.setNext(new ListItem<>(current2.getNext().getData()));
         }
     }
 
@@ -46,19 +45,13 @@ public class MyLinkedList<T> {
     public T get(int index) {
         checkIndex(index);
 
-        if (index == 0) {
-            return getFirst();
-        }
-
-        ListItem<T> current = goTo(index);
-
-        return current.getData();
+        return getItemByIndex(index).getData();
     }
 
     public T set(int index, T data) {
         checkIndex(index);
 
-        ListItem<T> current = goTo(index);
+        ListItem<T> current = getItemByIndex(index);
 
         T replacedData = current.getData();
 
@@ -83,7 +76,7 @@ public class MyLinkedList<T> {
             return;
         }
 
-        ListItem<T> current = goTo(index);
+        ListItem<T> current = getItemByIndex(index - 1);
 
         current.setNext(new ListItem<>(data, current.getNext()));
         size++;
@@ -100,7 +93,7 @@ public class MyLinkedList<T> {
             return removeFirst();
         }
 
-        ListItem<T> previous = goTo(index);
+        ListItem<T> previous = getItemByIndex(index - 1);
         ListItem<T> current = previous.getNext();
 
         T removedData = current.getData();
@@ -128,26 +121,22 @@ public class MyLinkedList<T> {
 
         for (; current != null; previous = current, current = current.getNext()) {
             if (Objects.equals(current.getData(), object)) {
-                break;
+                if (previous == null) {
+                    head = current.getNext();
+                } else {
+                    previous.setNext(current.getNext());
+                }
+
+                size--;
+                return true;
             }
         }
 
-        if (current == null) {
-            return false;
-        }
-
-        if (previous == null) {
-            head = current.getNext();
-        } else {
-            previous.setNext(current.getNext());
-        }
-
-        size--;
-        return true;
+        return false;
     }
 
     public MyLinkedList<T> reverse() {
-        if (size == 1 || size == 0) {
+        if (size <= 1) {
             return this;
         }
 
@@ -155,9 +144,7 @@ public class MyLinkedList<T> {
         ListItem<T> current = head.getNext();
         ListItem<T> next = current.getNext();
 
-        for (;
-             next != null;
-             previous = current, current = next, next = next.getNext()) {
+        for (; next != null; previous = current, current = next, next = next.getNext()) {
             current.setNext(previous);
         }
 
@@ -197,11 +184,7 @@ public class MyLinkedList<T> {
         return stringBuilder.toString();
     }
 
-    private ListItem<T> goTo(int index) {
-        if (index != size) {
-            checkIndex(index);
-        }
-
+    private ListItem<T> getItemByIndex(int index) {
         ListItem<T> current = head;
 
         for (int i = 0; i < index; i++) {
