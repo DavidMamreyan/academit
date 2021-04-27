@@ -48,17 +48,26 @@ public class Main {
         tree.add(110);
         tree.add(170);
         tree.add(30);
+        tree.add(33);
         tree.add(90);
         tree.add(130);
         tree.add(190);
+        tree.add(192);
         tree.add(140);
         tree.add(141);
         tree.add(142);
+
+        System.out.println(tree.getSize());
 
         System.out.println(tree);
         System.out.println(tree.toStringDepthFirst());
         System.out.println(tree.toStringDepthFirstRecursive());
 
-        System.out.println(tree.getSize());
+        tree.balance();
+
+        System.out.println(tree);
+        System.out.println(tree.toStringDepthFirst());
+        System.out.println(tree.toStringDepthFirstRecursive());
+
     }
 }

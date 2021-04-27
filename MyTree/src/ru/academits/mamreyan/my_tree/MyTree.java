@@ -1,6 +1,7 @@
 package ru.academits.mamreyan.my_tree;
 
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -27,14 +28,14 @@ public class MyTree<T> {
     }
 
     public boolean add(T data) {
+        if (Objects.equals(data, null)) {
+            return false;
+        }
+
         if (root == null) {
             root = new MyTreeNode<>(data);
 
             return true;
-        }
-
-        if (Objects.equals(data, null)) {
-            return false;
         }
 
         MyTreeNode<T> current = root;
@@ -283,6 +284,50 @@ public class MyTree<T> {
         traverseBreadthFirst(node -> size[0]++);
 
         return size[0];
+    }
+
+    // пересобирает дерево в сбалансированном виде
+    // сначала записывает все элементы дерева в массив и сортирует его по возрастанию
+    // очищает дерево и использует рекурсивную функцию, чтобы пересобрать его из массива
+    public void balance() {
+        //noinspection unchecked
+        T[] array = (T[]) new Object[getSize()];
+        final int[] i = {0};
+
+        traverseDepthFirst((node) -> {
+            array[i[0]] = node.getData();
+            i[0]++;
+            return array;
+        });
+
+        Arrays.sort(array, (data1, data2) -> {
+            //noinspection unchecked
+            return ((Comparable<? super T>) data1).compareTo(data2);
+        });
+
+        clear();
+
+        balanceHelper(array, 0, array.length - 1);
+    }
+
+    // рекурсивная функция делит массив и каждый подмассив, полученный таким делением, пополам, вычленяя элемент посередине и записывая его в дерево
+    // таким образом дерево собирается в сбалансированном виде, с количеством элементов в двух поддеревьях любого узла не отличающемся больше, чем на 1
+    private void balanceHelper(T[] array, int left, int right) {
+        int center = left + (right - left + 1) / 2;
+
+        add(array[center]);
+
+        if (left <= center - 1) {
+            balanceHelper(array, left, center - 1);
+        }
+
+        if (right >= center + 1) {
+            balanceHelper(array, center + 1, right);
+        }
+    }
+
+    public void clear() {
+        root = null;
     }
 
     private int compare(MyTreeNode<T> node1, MyTreeNode<T> node2) {
