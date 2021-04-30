@@ -125,6 +125,10 @@ public class MyTree<T> {
     }
 
     public boolean remove(T data) {
+        if (root == null) {
+            return false;
+        }
+
         MyTreeNode<T> current = root;
         MyTreeNode<T> parent = null;
         MyTreeNode<T> node = new MyTreeNode<>(data);
@@ -216,7 +220,7 @@ public class MyTree<T> {
         return true;
     }
 
-    public <R> void traverseDepthFirstRecursive(Function<MyTreeNode<T>, R> f, MyTreeNode<T> node) {
+    private <R> void traverseDepthFirstRecursive(Function<MyTreeNode<T>, R> f, MyTreeNode<T> node) {
         f.apply(node);
 
         if (node.hasLeft()) {
@@ -228,7 +232,11 @@ public class MyTree<T> {
         }
     }
 
-    private <R> void traverseDepthFirstRecursive(Function<MyTreeNode<T>, R> f) {
+    public <R> void traverseDepthFirstRecursive(Function<MyTreeNode<T>, R> f) {
+        if (root == null) {
+            return;
+        }
+
         f.apply(root);
 
         if (root.hasLeft()) {
@@ -241,6 +249,10 @@ public class MyTree<T> {
     }
 
     public <R> void traverseDepthFirst(Function<MyTreeNode<T>, R> f) {
+        if (root == null) {
+            return;
+        }
+
         ArrayDeque<MyTreeNode<T>> deque = new ArrayDeque<>();
         deque.addFirst(root);
 
@@ -260,6 +272,10 @@ public class MyTree<T> {
     }
 
     public <R> void traverseBreadthFirst(Function<MyTreeNode<T>, R> f) {
+        if (root == null) {
+            return;
+        }
+
         ArrayDeque<MyTreeNode<T>> deque = new ArrayDeque<>();
         deque.addFirst(root);
 
