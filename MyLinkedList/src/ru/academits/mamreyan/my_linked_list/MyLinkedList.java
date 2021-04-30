@@ -76,9 +76,9 @@ public class MyLinkedList<T> {
             return;
         }
 
-        ListItem<T> current = getItemByIndex(index - 1);
+        ListItem<T> previous = getItemByIndex(index - 1);
 
-        current.setNext(new ListItem<>(data, current.getNext()));
+        previous.setNext(new ListItem<>(data, previous.getNext()));
         size++;
     }
 
